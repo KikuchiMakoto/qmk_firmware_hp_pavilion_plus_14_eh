@@ -12,42 +12,62 @@ uvx --with-requirements requirements.txt qmk compile -kb converter/hp_pavilion_p
 
 ビルド完了後、`C:\Users\kmakoto\qmk_firmware\converter_hp_pavilion_plus_14_eh_rpi_pico_default.uf2` が生成されます。
 
-## 基板ピン配置 (KiCad PCB `hp_pavilion_plus_rp2040` 準拠)
+## 基板ピン配置および実装仕様 (KiCad PCB `hp_pavilion_plus_rp2040` 実機)
+
+> **【重要】実機FPCコネクタの偶数・奇数ピン反転について**  
+> 0.8mmピッチFPCコネクタ（J1）の千鳥配列フットプリント定義の差異により、実機ではコネクタ端子の **奇数ピンと偶数ピンが全域でペア反転（$1 \leftrightarrow 2, 3 \leftrightarrow 4, \dots, 39 \leftrightarrow 40$）** しています。  
+> 現在のファームウェア（`keyboard.json`）はこの反転後の二部グラフ（8 Rows × 15 Cols）に合わせてGPIOとマトリクス交点を再編・最適化済みです。
 
 ### Matrix Rows (8本)
-| Row Index | Pico GPIO | KiCad Net (`J1` 1-idx) | FPC Pin (0-idx) |
+| Row Index | Pico GPIO | 実機接続 (`J1` 1-idx) | 設計Net / FPC Pin (0-idx) |
 | :---: | :---: | :---: | :---: |
-| `0` | `GP5` | `PFC30` (Pin 30) | `29` |
-| `1` | `GP6` | `PFC31` (Pin 31) | `30` |
-| `2` | `GP9` | `PFC34` (Pin 34) | `33` |
-| `3` | `GP10` | `PFC35` (Pin 35) | `34` |
-| `4` | `GP11` | `PFC36` (Pin 36) | `35` |
-| `5` | `GP12` | `PFC37` (Pin 37) | `36` |
-| `6` | `GP14` | `PFC39` (Pin 39) | `38` |
-| `7` | `GP15` | `PFC40` (Pin 40) | `39` |
+| `0` | `GP4` | `J1` Pin 29 | `PFC29` (Pin 28) |
+| `1` | `GP7` | `J1` Pin 32 | `PFC32` (Pin 31) |
+| `2` | `GP8` | `J1` Pin 33 | `PFC33` (Pin 32) |
+| `3` | `GP10` | `J1` Pin 35 | `PFC35` (Pin 34) |
+| `4` | `GP11` | `J1` Pin 36 | `PFC36` (Pin 35) |
+| `5` | `GP13` | `J1` Pin 38 | `PFC38` (Pin 37) |
+| `6` | `GP14` | `J1` Pin 39 | `PFC39` (Pin 38) |
+| `7` | `GP15` | `J1` Pin 40 | `PFC40` (Pin 39) |
 
 ### Matrix Cols (15本)
-| Col Index | Pico GPIO | KiCad Net (`J1` 1-idx) | FPC Pin (0-idx) | 備考 |
+| Col Index | Pico GPIO | 実機接続 (`J1` 1-idx) | 設計Net / FPC Pin (0-idx) | 備考 |
 | :---: | :---: | :---: | :---: | :--- |
-| `0` | `GP16` | `PFC17` (Pin 17) | `16` | |
-| `1` | `GP17` | `PFC18` (Pin 18) | `17` | |
-| `2` | `GP18` | `PFC19` (Pin 19) | `18` | |
-| `3` | `GP19` | `PFC20` (Pin 20) | `19` | |
-| `4` | `GP20` | `PFC22` (Pin 22) | `21` | Left Alt / Right Alt 専用 |
-| `5` | `GP21` | `PFC23` (Pin 23) | `22` | |
-| `6` | `GP22` | `PFC24` (Pin 24) | `23` | Windows 専用 |
-| `7` | `GP0` | `PFC25` (Pin 25) | `24` | Fn 専用 |
-| `8` | `GP1` | `PFC26` (Pin 26) | `25` | |
-| `9` | `GP2` | `PFC27` (Pin 27) | `26` | |
-| `10` | `GP3` | `PFC28` (Pin 28) | `27` | |
-| `11` | `GP4` | `PFC29` (Pin 29) | `28` | |
-| `12` | `GP7` | `PFC32` (Pin 32) | `31` | |
-| `13` | `GP8` | `PFC33` (Pin 33) | `32` | Left Ctrl / Right Ctrl 専用 |
-| `14` | `GP13` | `PFC38` (Pin 38) | `37` | Left Shift / Right Shift 専用 |
+| `0` | `GP16` | `J1` Pin 17 | `PFC17` (Pin 16) | |
+| `1` | `GP17` | `J1` Pin 18 | `PFC18` (Pin 17) | |
+| `2` | `GP18` | `J1` Pin 19 | `PFC19` (Pin 18) | |
+| `3` | `GP19` | `J1` Pin 20 | `PFC20` (Pin 19) | |
+| `4` | `GP20` | `J1` Pin 22 | `PFC22` (Pin 21) | **※Alt用 (下記注記参照)** |
+| `5` | `GP21` | `J1` Pin 23 | `PFC23` (Pin 22) | |
+| `6` | `GP22` | `J1` Pin 24 | `PFC24` (Pin 23) | Windows 専用 |
+| `7` | `GP0`  | `J1` Pin 25 | `PFC25` (Pin 24) | Fn 専用 |
+| `8` | `GP1`  | `J1` Pin 26 | `PFC26` (Pin 25) | |
+| `9` | `GP2`  | `J1` Pin 27 | `PFC27` (Pin 26) | |
+| `10` | `GP3`  | `J1` Pin 28 | `PFC28` (Pin 27) | |
+| `11` | `GP5`  | `J1` Pin 30 | `PFC30` (Pin 29) | |
+| `12` | `GP6`  | `J1` Pin 31 | `PFC31` (Pin 30) | |
+| `13` | `GP9`  | `J1` Pin 34 | `PFC34` (Pin 33) | |
+| `14` | `GP12` | `J1` Pin 37 | `PFC37` (Pin 36) | |
 
-### インジケータ LED
-| LED名称 | Pico GPIO | KiCad Net (`J1` 1-idx) | カソード側 (`J1` 1-idx) |
-| :--- | :---: | :---: | :---: |
-| **CapsLock LED (白)** | `GP26` | `LED_CAPSLK` (Pin 2) | `GND` (Pin 8) |
-| **Mic Mute LED (橙, F8)** | `GP27` | `LED_MICMUTE` (Pin 1) | `GND` (Pin 7) |
+> **※Altキー（Left Alt / Right Alt）のハードウェア注意点**  
+> ピン反転により、本来J1 Pin 22（GP20）に入るべきAlt信号が、基板上で未結線（NC）としていた `J1 Pin 21` に流れています。Left/Right Alt を使用する場合は、基板上で **J1 Pin 21 と Pin 22 の間をハンダブリッジ** して接続してください。
+
+---
+
+### インジケータ LED & MUTE LED の仕様
+| LED名称 | Pico GPIO | 実機接続 (`J1` 1-idx) | カソード側 | 動作状況 |
+| :--- | :---: | :---: | :---: | :--- |
+| **CapsLock LED (白)** | `GP27` | `J1` Pin 1 | `GND` (Pin 7) | **動作可**（QMK標準LED機能で自動連動） |
+| **MUTE LED (橙, F8)** | `GP26` | `J1` Pin 2 | `GND` (Pin 8) | **現状未対応 (オミット)** |
+
+#### 【MUTE LED（F8）の現状について】
+* ハードウェア配線自体は Pico `GP26` 経由で F8 の橙色LEDに接続されています。
+* 標準のUSB HIDキーボード仕様にはOSホスト側からマイクミュート状態を受信するLEDレポート規格が存在せず、QMKコア側にも `LED_MIC_MUTE_PIN` の自動制御機能は含まれていません。
+* そのため、現状のファームウェアでは **MUTE LEDは未対応（消灯状態のままオミット）** としています。今後点灯制御を行う場合は、`keymap.c` 内で `process_record_user` によるキー押下トグル制御や、Raw HID経由での独自ソフトウェア連携コードを追加して制御してください。
+
+---
+
+## キーマップ構成 (HP Action Keys 準拠)
+* **レイヤー0（単体押し）**: メディア・アクション機能（検索, 輝度Down/Up, ミュート, 音量Down/Up, メディア再生操作, ディスプレイ切替, Insert）
+* **レイヤー1（Fn同時押し）**: 標準 `F1` 〜 `F12` キー
 
