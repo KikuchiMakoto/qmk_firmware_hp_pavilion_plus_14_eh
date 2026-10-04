@@ -71,3 +71,45 @@ uvx --with-requirements requirements.txt qmk compile -kb converter/hp_pavilion_p
 * **レイヤー0（単体押し）**: メディア・アクション機能（検索, 輝度Down/Up, ミュート, 音量Down/Up, メディア再生操作, ディスプレイ切替, Insert）
 * **レイヤー1（Fn同時押し）**: 標準 `F1` 〜 `F12` キー
 
+---
+
+## USB 仕様および pid.codes (Open Source Hardware) 規約準拠
+
+USB-IF 本家の規格およびオープンソースハードウェアコミュニティ向け公式 USB ID 管理機構である pid.codes（`0x1209`）の規約に準拠しています。
+
+* **Vendor ID (VID)**: `0x1209` (InterBiometrics / pid.codes - Open Source Hardware)
+* **Product ID (PID)**: `0x0002` (pid.codes Test PID 2)
+* **Manufacturer**: `Makoto KUNO <makomako0829bump@gmail.com>`
+* **Product Name**: `HP Pavilion Plus 14-eh Keyboard Converter`
+* **Serial Number**: `makomako0829bump@gmail.com:hp_pavilion_plus_14_eh`
+  * USB ディスクリプタ（iSerialNumber）にメールアドレスプレフィックス形式のシリアル番号を埋め込んでいます。
+
+---
+
+## Remap によるキーマップ変更・マクロ設定
+
+本ファームウェアは動的キーマップ 6 レイヤーおよびマクロ機能（Macro 0〜15）に対応しており、Remap 上で直感的にカスタマイズできます。
+
+### 設定用定義ファイル
+* **`remap.json`**: 本ディレクトリ直下に同梱されています（実機のキーサイズ・最下段の合流レイアウトに完全準拠）。
+  * ※実機キーボードで `PrtSc` と `Delete` の間にあるボタン（電源ボタン）はマトリクス未結線のため、誤設定を防ぐ目的で Remap 上では物理的な隙間（空きスペース）として定義されています。
+
+### Remap の利用手順:
+1. Google Chrome または Microsoft Edge で **[https://remap-keys.app/configure](https://remap-keys.app/configure)** を開きます。
+2. 「START REMAP FOR YOUR KEYBOARD」をクリックし、接続されたコンバーターを選択します。
+3. 初回接続時またはレイアウトが表示されない場合は、本フォルダ直下の **`remap.json`** を画面上にドラッグ＆ドロップしてインポートします。
+4. キーマップ編集画面が開き、GUI 上で直感的にキーの再配置を行えます。
+
+### マクロ（Macro）の使い方（Fn＋キーの割り当てなど）:
+1. レイヤー 1（Fn レイヤー）の任意のキーに、キーコード `M0` 〜 `M15`（Macro 0〜15）を配置します。
+2. Remap の「MACRO」タブを開き、対象マクロ（例: `M0`）に送信したいキーストローク（例: `Ctrl + C`、ショートカット、定型テキスト等）を登録して保存します。
+3. 実機で `Fn` を押しながらそのキーを押すことで、登録したマクロが実行されます。
+
+---
+
+## 配布用アセット（GitHub Releases）
+GitHub Release を作成する際は、以下のファイルを一緒に配布することを推奨します:
+1. `converter_hp_pavilion_plus_14_eh_rpi_pico_default.uf2`（ファームウェア本体）
+2. `remap.json`（Remap 用定義ファイル）
+
+
