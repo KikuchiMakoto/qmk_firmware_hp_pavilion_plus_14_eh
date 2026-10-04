@@ -107,6 +107,23 @@ USB-IF 本家の規格およびオープンソースハードウェアコミュ�
 
 ---
 
+## キーマトリクス交点対応表 (Matrix & FPC Pinout Table)
+
+8 Rows × 15 Cols のマトリクス交点と割り当てられている物理キーの対応表です。各行・列には Pico GPIO および実機 FPC コネクタ（J1）の端子番号を記載しています。
+
+| Row \ Col | Col 0<br>`GP16`<br>(Pin 17) | Col 1<br>`GP17`<br>(Pin 18) | Col 2<br>`GP18`<br>(Pin 19) | Col 3<br>`GP19`<br>(Pin 20) | Col 4<br>`GP20`<br>(Pin 22) | Col 5<br>`GP21`<br>(Pin 23) | Col 6<br>`GP22`<br>(Pin 24) | Col 7<br>`GP0`<br>(Pin 25) | Col 8<br>`GP1`<br>(Pin 26) | Col 9<br>`GP2`<br>(Pin 27) | Col 10<br>`GP3`<br>(Pin 28) | Col 11<br>`GP5`<br>(Pin 30) | Col 12<br>`GP6`<br>(Pin 31) | Col 13<br>`GP9`<br>(Pin 34) | Col 14<br>`GP12`<br>(Pin 37) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Row 0**<br>`GP4`<br>(Pin 29) | Delete | =+ | F12 | - | AltGr | - | - | N | - | B | F1 | Caps Lock | F8 | - | - |
+| **Row 1**<br>`GP7`<br>(Pin 32) | PgUp | -_ | F9 | \| | - | - | - | 6^ | Fn | 5% | F2 | `~ | F5 | - | - |
+| **Row 2**<br>`GP8`<br>(Pin 33) | Home | [{ | F10 | - | - | - | ]} | Y | - | T | F3 | Tab | F6 | Ctrl | - |
+| **Row 3**<br>`GP10`<br>(Pin 35) | End | /? | .> | Space | - | - | ,< | M | - | V | C | Z | X | - | Shift |
+| **Row 4**<br>`GP11`<br>(Pin 36) | PgDn | ;: | L | Enter | - | - | K | J | - | F | D | A | S | Ctrl | - |
+| **Row 5**<br>`GP13`<br>(Pin 38) | Right | 0) | 9( | Down | Alt | - | 8* | 7& | - | 4$ | 3# | 1! | 2@ | - | - |
+| **Row 6**<br>`GP14`<br>(Pin 39) | Left | P | O | Up | - | - | I | U | - | R | E | Q | W | - | Shift |
+| **Row 7**<br>`GP15`<br>(Pin 40) | PrtSc | '" | F11 | Bksp | - | Left OS | - | H | - | G | F4 | Esc | F7 | - | - |
+
+---
+
 ## 配布用アセット（GitHub Releases）
 GitHub Release を作成する際は、以下のファイルを一緒に配布することを推奨します:
 1. `converter_hp_pavilion_plus_14_eh_rpi_pico_default.uf2`（ファームウェア本体）
