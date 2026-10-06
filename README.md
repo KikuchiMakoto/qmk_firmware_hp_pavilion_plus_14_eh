@@ -12,12 +12,6 @@ uvx --with-requirements requirements.txt qmk compile -kb converter/hp_pavilion_p
 
 ビルド完了後、`C:\Users\kmakoto\qmk_firmware\converter_hp_pavilion_plus_14_eh_rpi_pico_default.uf2` が生成されます。
 
-## 基板ピン配置および実装仕様 (KiCad PCB `hp_pavilion_plus_rp2040` 実機)
-
-> **【重要】実機FPCコネクタの偶数・奇数ピン反転について**  
-> 0.8mmピッチFPCコネクタ（J1）の千鳥配列フットプリント定義の差異により、実機ではコネクタ端子の **奇数ピンと偶数ピンが全域でペア反転（$1 \leftrightarrow 2, 3 \leftrightarrow 4, \dots, 39 \leftrightarrow 40$）** しています。  
-> 現在のファームウェア（`keyboard.json`）はこの反転後の二部グラフ（8 Rows × 15 Cols）に合わせてGPIOとマトリクス交点を再編・最適化済みです。
-
 ### Matrix Rows (8本)
 | Row Index | Pico GPIO | 実機接続 (`J1` 1-idx) | 設計Net / FPC Pin (0-idx) |
 | :---: | :---: | :---: | :---: |
